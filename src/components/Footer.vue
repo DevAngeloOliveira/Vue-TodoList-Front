@@ -33,11 +33,10 @@
   background-color: var(--fb-white);
   border-top: 1px solid var(--fb-light-gray);
   padding: 8px 16px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  height: 40px; /* Defina uma altura fixa para o footer */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .footer-content {

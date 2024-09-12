@@ -55,12 +55,12 @@ const getCategoryIcon = (category: string) => {
 
 <template>
   <div class="app-container">
-    <Header />
+    <Header class="header" />
     <div class="content-wrapper">
       <aside class="sidebar">
         <div class="user-info">
           <img
-            src="./assets//images//image.png"
+            src="./assets/images/image.png"
             alt="User Avatar"
             class="user-avatar"
           />
@@ -90,7 +90,7 @@ const getCategoryIcon = (category: string) => {
         />
       </main>
     </div>
-    <Footer />
+    <Footer class="footer" />
   </div>
 </template>
 
@@ -115,37 +115,44 @@ body {
     Arial, sans-serif;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Impede o scroll no body */
-  height: 100vh; /* Define a altura para 100% da viewport */
   background-color: var(--fb-gray);
   color: var(--fb-black);
   line-height: 1.34;
+  /* Removido: overflow: hidden; e height: 100vh; */
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Usa toda a altura da viewport */
+  height: 100vh; /* Alterado de height para min-height */
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 56px; /* Ajuste conforme necessário */
 }
 
 .content-wrapper {
   display: flex;
   flex: 1;
-  overflow: hidden; /* Impede o scroll no wrapper */
+  overflow: hidden;
   padding-top: 56px; /* Altura do cabeçalho fixo */
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  /* Removido: overflow: hidden; */
 }
 
 .sidebar {
   width: 280px;
   padding: 20px;
-  position: sticky;
-  top: 56px;
-  height: 100%; /* Ocupa toda a altura do content-wrapper */
-  overflow-y: auto; /* Permite scroll na sidebar se necessário */
+  overflow-y: auto;
   background-color: var(--fb-white);
+  height: calc(100vh - 56px); /* Altura total menos a altura do header */
 }
 
 .user-info {
@@ -202,15 +209,20 @@ body {
 .main-content {
   flex: 1;
   padding: 20px;
-  overflow-y: auto; /* Permite scroll no conteúdo principal */
-  height: 100%; /* Ocupa toda a altura do content-wrapper */
+  overflow-y: auto;
+  /* Removido: height: 100%; */
   max-width: 800px;
   width: 100%;
+  padding-bottom: 60px; /* Adicione espaço para o footer */
+}
+
+.footer {
+  height: 40px; /* Ajuste conforme necessário */
 }
 
 @media (max-width: 1200px) {
   .content-wrapper {
-    padding: 56px 20px 0;
+    padding: 76px 20px 0; /* 56px (header) + 20px (padding-top) */
   }
 }
 
@@ -222,12 +234,14 @@ body {
   .sidebar {
     width: 100%;
     height: auto;
-    max-height: 30vh; /* Limita a altura da sidebar em telas menores */
+    max-height: 30vh;
   }
 
   .main-content {
-    height: auto;
-    max-height: 70vh; /* Ajusta a altura do conteúdo principal em telas menores */
+    height: calc(
+      100vh - 56px - 30vh - 40px
+    ); /* Ajuste para considerar header, sidebar e footer */
+    max-height: none;
   }
 }
 </style>
