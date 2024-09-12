@@ -214,7 +214,7 @@ const hideAddTodoActions = () => {
         >
           <div class="todo-header">
             <div class="user-avatar">
-              <img src="https://via.placeholder.com/40" alt="User Avatar" />
+              <img src="../assets//images/image.png" alt="User Avatar" />
             </div>
             <div class="todo-info">
               <span class="todo-category">
@@ -324,5 +324,11 @@ const hideAddTodoActions = () => {
 
 .todo-menu-item:hover {
   background-color: var(--fb-light-gray);
+}
+
+.todo-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 </style>
