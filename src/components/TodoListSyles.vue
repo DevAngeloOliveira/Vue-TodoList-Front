@@ -24,6 +24,7 @@ export default {
   margin-bottom: 1rem;
   display: flex;
   align-items: flex-start;
+  overflow: hidden; /* Adicione esta linha */
 }
 
 .user-avatar {
@@ -43,6 +44,8 @@ export default {
 
 .add-todo-input {
   flex-grow: 1;
+  display: flex; /* Adicione esta linha */
+  flex-direction: column; /* Adicione esta linha */
 }
 
 .todo-input {
@@ -53,17 +56,22 @@ export default {
   background-color: var(--fb-gray);
   border-radius: 20px;
   transition: all 0.3s ease;
+  box-sizing: border-box; /* Adicione esta linha */
 }
 
 .todo-input:focus {
   outline: none;
-  box-shadow: 0 0 0 2px var(--fb-blue);
+  box-shadow: none; /* Remova a sombra ao focar */
+  background-color: var(
+    --fb-light-gray
+  ); /* Mude sutilmente a cor de fundo ao focar */
 }
 
 .add-todo-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
+  width: 100%; /* Adicione esta linha */
 }
 
 .category-select {
@@ -98,10 +106,11 @@ export default {
 
 .todo-tabs {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
   background-color: var(--fb-white);
   border-radius: var(--border-radius);
   overflow: hidden;
-  margin-bottom: 1rem;
 }
 
 .tab-btn {
@@ -110,14 +119,30 @@ export default {
   border: none;
   background-color: transparent;
   cursor: pointer;
-  font-weight: bold;
-  color: var(--fb-dark-gray);
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
 }
 
 .tab-btn.active {
   background-color: var(--fb-blue);
   color: var(--fb-white);
+}
+
+.todo-card {
+  margin-bottom: 1rem;
+  transition: opacity 0.3s ease;
+}
+
+.todo-completed,
+.todo-abandoned {
+  opacity: 0.6;
+}
+
+.subtasks-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--fb-gray);
+  border-radius: var(--border-radius);
 }
 
 .todo-list {

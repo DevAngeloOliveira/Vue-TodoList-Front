@@ -34,6 +34,8 @@ const emit = defineEmits<{
 const newTodo = ref("");
 const newTodoCategory = ref("");
 const activeTab = ref("todas");
+const showAddTodoActions = ref(false);
+const expandedTodos = ref<number[]>([]);
 
 // Arrays de categorias e tabs disponíveis
 const categories = [
@@ -73,13 +75,10 @@ const updateTodoStatus = (
 
 // Computed property para filtrar tarefas
 const filteredTodos = computed(() => {
-  return props.todos.filter((todo) => {
-    const statusMatch =
-      activeTab.value === "todas" || todo.status === activeTab.value;
-    const categoryMatch =
-      props.activeFilter === "todas" || todo.category === props.activeFilter;
-    return statusMatch && categoryMatch;
-  });
+  if (activeTab.value === "todas") {
+    return props.todos;
+  }
+  return props.todos.filter((todo) => todo.status === activeTab.value);
 });
 
 // Lógica para confirmação de abandono de tarefa
@@ -106,9 +105,7 @@ const updateSubTasks = (todoId: number, updatedSubTasks: SubTask[]) => {
   }
 };
 
-// Lógica para expandir/recolher tarefas
-const expandedTodos = ref<number[]>([]);
-
+// Função para alternar a expansão de uma tarefa
 const toggleExpand = (todoId: number) => {
   const index = expandedTodos.value.indexOf(todoId);
   if (index === -1) {
@@ -156,8 +153,6 @@ const isAddButtonDisabled = computed(() => {
 });
 
 // Lógica para mostrar/esconder ações de adicionar tarefa
-const showAddTodoActions = ref(false);
-
 const hideAddTodoActions = () => {
   if (!newTodo.value.trim() && !newTodoCategory.value) {
     showAddTodoActions.value = false;
@@ -174,33 +169,27 @@ const hideAddTodoActions = () => {
       </div>
       <div class="add-todo-input">
         <input
-          v-model.trim="newTodo"
+          v-model="newTodo"
           @focus="showAddTodoActions = true"
           @blur="hideAddTodoActions"
-          placeholder="No que você está trabalhando?"
           class="todo-input"
+          placeholder="No que você está trabalhando?"
         />
-        <transition name="fade">
-          <div v-if="showAddTodoActions" class="add-todo-actions">
-            <select v-model="newTodoCategory" class="category-select">
-              <option value="" disabled selected>Categoria</option>
-              <option
-                v-for="cat in categories.slice(1)"
-                :key="cat.value"
-                :value="cat.value"
-              >
-                {{ cat.label }}
-              </option>
-            </select>
-            <button
-              @click="addTodo"
-              class="add-btn"
-              :disabled="isAddButtonDisabled"
-            >
-              <i class="fas fa-plus"></i> Adicionar
-            </button>
-          </div>
-        </transition>
+        <div v-if="showAddTodoActions" class="add-todo-actions">
+          <select v-model="newTodoCategory" class="category-select">
+            <option value="">Selecione uma categoria</option>
+            <option value="trabalho">Trabalho</option>
+            <option value="pessoal">Pessoal</option>
+            <option value="estudo">Estudo</option>
+          </select>
+          <button
+            @click="addTodo"
+            :disabled="isAddButtonDisabled"
+            class="add-btn"
+          >
+            Adicionar Tarefa
+          </button>
+        </div>
       </div>
     </div>
     <div class="todo-tabs">
