@@ -24,8 +24,8 @@ const cancel = () => {
       <div class="modal-content">
         <p>{{ message }}</p>
         <div class="modal-actions">
-          <button @click="confirm" class="confirm-btn">Sim</button>
           <button @click="cancel" class="cancel-btn">Não</button>
+          <button @click="confirm" class="confirm-btn">Sim</button>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@ const cancel = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,56 +47,62 @@ const cancel = () => {
 }
 
 .modal-content {
-  background-color: var(--white);
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
+  background-color: var(--fb-white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
   max-width: 90%;
   width: 400px;
 }
 
+.modal-content p {
+  font-size: 1.1rem;
+  color: var(--fb-black);
+  margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
 button {
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
-  transition: var(--transition);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .confirm-btn {
-  background-color: var(--primary-blue);
-  color: var(--white);
+  background-color: var(--fb-blue);
+  color: var(--fb-white);
 }
 
 .confirm-btn:hover {
-  background-color: var(--light-blue);
+  background-color: #166fe5;
 }
 
 .cancel-btn {
-  background-color: var(--medium-gray);
-  color: var(--white);
+  background-color: var(--fb-light-gray);
+  color: var(--fb-black);
 }
 
 .cancel-btn:hover {
-  background-color: var(--dark-gray);
+  background-color: #d8dadf;
 }
 
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .modal-enter-from,
 .modal-leave-to {
   opacity: 0;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
 }
 </style>
