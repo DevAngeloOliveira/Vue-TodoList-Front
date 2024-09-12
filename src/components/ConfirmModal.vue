@@ -28,8 +28,8 @@ const cancel = () => {
       <div class="modal-content">
         <p>{{ message }}</p>
         <div class="modal-actions">
-          <button @click="cancel" class="cancel-btn">Não</button>
           <button @click="confirm" class="confirm-btn">Sim</button>
+          <button @click="cancel" class="cancel-btn">Não</button>
         </div>
       </div>
     </div>
