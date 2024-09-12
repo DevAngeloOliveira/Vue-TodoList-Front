@@ -19,17 +19,7 @@ const toggleUserMenu = () => {
   console.log("Toggle menu do usuário");
 };
 
-defineProps<{
-  isDarkTheme: boolean;
-}>();
-
-const emit = defineEmits<{
-  (e: "toggle-theme"): void;
-}>();
-
-const toggleTheme = () => {
-  emit("toggle-theme");
-};
+// Removido: const emit e toggleTheme
 </script>
 
 <template>
@@ -65,9 +55,7 @@ const toggleTheme = () => {
         <button class="icon-btn" title="Perfil" @click="toggleUserMenu">
           <i class="fas fa-user"></i>
         </button>
-        <button class="icon-btn" title="Alternar tema" @click="toggleTheme">
-          <i :class="isDarkTheme ? 'fas fa-sun' : 'fas fa-moon'"></i>
-        </button>
+        <!-- Removido: botão de alternar tema -->
       </div>
     </div>
   </header>
