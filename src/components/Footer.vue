@@ -1,8 +1,9 @@
 <script setup lang="ts">
-// Nenhum script necessário
+// Nenhum script necessário para o footer
 </script>
 
 <template>
+  <!-- Estrutura do rodapé -->
   <footer class="footer">
     <div class="footer-content">
       <p>&copy; 2024 TaskMaster - Vue + Laravel</p>

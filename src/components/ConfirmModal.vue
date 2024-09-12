@@ -1,14 +1,17 @@
 <script setup lang="ts">
+// Definição das props
 defineProps<{
   isOpen: boolean;
   message: string;
 }>();
 
+// Definição dos emits
 const emit = defineEmits<{
   (e: "confirm"): void;
   (e: "cancel"): void;
 }>();
 
+// Funções para confirmar ou cancelar a ação
 const confirm = () => {
   emit("confirm");
 };
@@ -19,6 +22,7 @@ const cancel = () => {
 </script>
 
 <template>
+  <!-- Estrutura do modal de confirmação -->
   <transition name="modal">
     <div v-if="isOpen" class="modal-overlay" @click.self="cancel">
       <div class="modal-content">
@@ -33,6 +37,7 @@ const cancel = () => {
 </template>
 
 <style scoped>
+/* Estilos específicos do modal de confirmação */
 .modal-overlay {
   position: fixed;
   top: 0;

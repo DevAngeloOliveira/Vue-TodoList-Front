@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ref, shallowRef, onMounted, watch } from "vue";
 
+// Definição da interface SubTask
 interface SubTask {
   id: number;
   text: string;
   status: "emProducao" | "concluida" | "abandonada";
 }
 
+// Definição das props e emits
 const props = defineProps<{
   todoId: number;
   initialSubTasks: SubTask[];
@@ -16,10 +18,12 @@ const emit = defineEmits<{
   (e: "updateSubTasks", todoId: number, subTasks: SubTask[]): void;
 }>();
 
+// Estado reativo para controle das subtarefas
 const newSubTask = ref("");
 const subTasks = shallowRef<SubTask[]>([]);
 let nextSubTaskId = ref(1);
 
+// Inicialização e observação das subtarefas
 onMounted(() => {
   subTasks.value = props.initialSubTasks;
   nextSubTaskId.value = Math.max(...subTasks.value.map((st) => st.id), 0) + 1;
@@ -34,6 +38,7 @@ watch(
   { deep: true }
 );
 
+// Funções para manipulação de subtarefas
 const addSubTask = () => {
   if (newSubTask.value.trim() !== "") {
     const newTask: SubTask = {
@@ -69,6 +74,7 @@ const emitUpdate = () => {
 </script>
 
 <template>
+  <!-- Estrutura das subtarefas -->
   <div class="sub-tasks">
     <h4><i class="fas fa-tasks"></i> Sub-tarefas</h4>
     <div class="sub-task-input">
@@ -124,6 +130,7 @@ const emitUpdate = () => {
 </template>
 
 <style scoped>
+/* Estilos específicos das subtarefas */
 .sub-tasks {
   background-color: var(--light-gray);
   margin-top: 1rem;
@@ -270,6 +277,7 @@ h4 i {
 </style>
 
 <script lang="ts">
+// Função auxiliar para obter ícone do status
 function getStatusIcon(status: string): string {
   switch (status) {
     case "emProducao":

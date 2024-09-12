@@ -4,6 +4,7 @@ import ConfirmModal from "./ConfirmModal.vue";
 import SubTasks from "./SubTasks.vue";
 import "./TodoListSyles.vue";
 
+// Definição das interfaces
 interface SubTask {
   id: number;
   text: string;
@@ -18,6 +19,7 @@ interface Todo {
   subTasks: SubTask[];
 }
 
+// Definição das props e emits
 const props = defineProps<{
   activeFilter: string;
   todos: Todo[];
@@ -28,10 +30,12 @@ const emit = defineEmits<{
   (e: "update-todo", todo: Todo): void;
 }>();
 
+// Estado reativo para controle da lista de tarefas
 const newTodo = ref("");
 const newTodoCategory = ref("");
 const activeTab = ref("todas");
 
+// Arrays de categorias e tabs disponíveis
 const categories = [
   { value: "todas", label: "Todas" },
   { value: "trabalho", label: "Trabalho" },
@@ -46,6 +50,7 @@ const tabs = [
   { value: "abandonada", label: "Abandonadas" },
 ];
 
+// Funções para manipulação de tarefas
 const addTodo = () => {
   if (newTodo.value.trim() && newTodoCategory.value) {
     emit("add-todo", {
@@ -66,6 +71,7 @@ const updateTodoStatus = (
   emit("update-todo", { ...todo, status: newStatus });
 };
 
+// Computed property para filtrar tarefas
 const filteredTodos = computed(() => {
   return props.todos.filter((todo) => {
     const statusMatch =
@@ -76,6 +82,7 @@ const filteredTodos = computed(() => {
   });
 });
 
+// Lógica para confirmação de abandono de tarefa
 const showConfirmModal = ref(false);
 const todoToAbandon = ref<Todo | null>(null);
 
@@ -91,6 +98,7 @@ const confirmAbandon = () => {
   showConfirmModal.value = false;
 };
 
+// Função para atualizar subtarefas
 const updateSubTasks = (todoId: number, updatedSubTasks: SubTask[]) => {
   const index = props.todos.findIndex((t) => t.id === todoId);
   if (index !== -1) {
@@ -98,6 +106,7 @@ const updateSubTasks = (todoId: number, updatedSubTasks: SubTask[]) => {
   }
 };
 
+// Lógica para expandir/recolher tarefas
 const expandedTodos = ref<number[]>([]);
 
 const toggleExpand = (todoId: number) => {
@@ -109,6 +118,7 @@ const toggleExpand = (todoId: number) => {
   }
 };
 
+// Funções auxiliares para obter ícones e labels
 const getCategoryIcon = (category: string) => {
   switch (category) {
     case "trabalho":
@@ -140,10 +150,12 @@ const getStatusLabel = (status: string) => {
   }
 };
 
+// Computed property para controle do botão de adicionar
 const isAddButtonDisabled = computed(() => {
   return !newTodo.value.trim() || !newTodoCategory.value;
 });
 
+// Lógica para mostrar/esconder ações de adicionar tarefa
 const showAddTodoActions = ref(false);
 
 const hideAddTodoActions = () => {
@@ -154,6 +166,7 @@ const hideAddTodoActions = () => {
 </script>
 
 <template>
+  <!-- Estrutura da lista de tarefas -->
   <div class="todo-container">
     <div class="add-todo-card">
       <div class="user-avatar">
@@ -270,6 +283,7 @@ const hideAddTodoActions = () => {
       </transition-group>
     </div>
   </div>
+  <!-- Modal de confirmação para abandonar tarefa -->
   <ConfirmModal
     :isOpen="showConfirmModal"
     message="Tem certeza que deseja abandonar esta tarefa?"
