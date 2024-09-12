@@ -34,7 +34,7 @@
   background-color: var(--fb-white);
   border-top: 1px solid var(--fb-light-gray);
   padding: 8px 16px;
-  height: 40px; /* Defina uma altura fixa para o footer */
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,7 +46,7 @@
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  height: 100%;
+  width: 100%;
 }
 
 p {

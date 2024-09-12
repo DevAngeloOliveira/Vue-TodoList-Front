@@ -124,14 +124,12 @@ body {
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Alterado de height para min-height */
+  min-height: 100vh; /* Alterado de height para min-height */
 }
 
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 1000;
   height: 56px; /* Ajuste conforme necessário */
 }
@@ -139,11 +137,10 @@ body {
 .content-wrapper {
   display: flex;
   flex: 1;
-  overflow: hidden;
-  padding-top: 56px; /* Altura do cabeçalho fixo */
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  padding-top: 20px; /* Adicione um espaço entre o header e o conteúdo */
   /* Removido: overflow: hidden; */
 }
 
@@ -152,7 +149,9 @@ body {
   padding: 20px;
   overflow-y: auto;
   background-color: var(--fb-white);
-  height: calc(100vh - 56px); /* Altura total menos a altura do header */
+  position: sticky;
+  top: 76px; /* Altura do header (56px) + padding-top do content-wrapper (20px) */
+  height: calc(100vh - 76px);
 }
 
 .user-info {
@@ -208,7 +207,7 @@ body {
 
 .main-content {
   flex: 1;
-  padding: 20px;
+  padding: 0 20px 20px;
   overflow-y: auto;
   /* Removido: height: 100%; */
   max-width: 800px;
@@ -217,12 +216,15 @@ body {
 }
 
 .footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
   height: 40px; /* Ajuste conforme necessário */
 }
 
 @media (max-width: 1200px) {
   .content-wrapper {
-    padding: 76px 20px 0; /* 56px (header) + 20px (padding-top) */
+    padding: 20px;
   }
 }
 
@@ -234,14 +236,12 @@ body {
   .sidebar {
     width: 100%;
     height: auto;
-    max-height: 30vh;
+    position: static;
+    max-height: none;
   }
 
   .main-content {
-    height: calc(
-      100vh - 56px - 30vh - 40px
-    ); /* Ajuste para considerar header, sidebar e footer */
-    max-height: none;
+    max-width: none;
   }
 }
 </style>

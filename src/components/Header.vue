@@ -1,25 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
-// Estado reativo para controle da barra de pesquisa e notificações
+
 const isSearchFocused = ref(false);
 const notificationCount = ref(3); // Exemplo de contagem de notificações
-// Funções para manipulação de eventos do cabeçalho
-const addTask = () => {
-  // Lógica para adicionar tarefa
-  // TODO: Implementar lógica para adicionar tarefa
-  console.log("Adicionar tarefa");
-};
+
 const toggleNotifications = () => {
-  // Lógica para abrir/fechar notificações
   // TODO: Implementar lógica para abrir/fechar notificações
   console.log("Toggle notificações");
 };
-const toggleUserMenu = () => {
-  // Lógica para abrir/fechar menu do usuário
-  // TODO: Implementar lógica para abrir/fechar menu do usuário
-  console.log("Toggle menu do usuário");
-};
-// Removido: const emit e toggleTheme
 </script>
 
 <template>
@@ -40,7 +28,7 @@ const toggleUserMenu = () => {
         />
       </div>
       <div class="user-actions">
-        <button class="icon-btn" title="Adicionar tarefa" @click="addTask">
+        <button class="icon-btn" title="Adicionar tarefa" ">
           <i class="fas fa-plus"></i>
         </button>
         <button
@@ -53,7 +41,7 @@ const toggleUserMenu = () => {
             notificationCount
           }}</span>
         </button>
-        <button class="icon-btn" title="Perfil" @click="toggleUserMenu">
+        <button class="icon-btn" title="Perfil" >
           <i class="fas fa-user"></i>
         </button>
         <!-- Removido: botão de alternar tema -->
