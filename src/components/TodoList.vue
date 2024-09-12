@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import ConfirmModal from "./ConfirmModal.vue";
 import SubTasks from "./SubTasks.vue";
 import "./TodoListSyles.vue";
@@ -154,10 +154,29 @@ const isAddButtonDisabled = computed(() => {
 
 // Lógica para mostrar/esconder ações de adicionar tarefa
 const hideAddTodoActions = () => {
-  if (!newTodo.value.trim() && !newTodoCategory.value) {
-    showAddTodoActions.value = false;
+  // Adicionamos um pequeno atraso para permitir que o clique no botão seja processado
+  setTimeout(() => {
+    if (!newTodo.value.trim() && !newTodoCategory.value) {
+      showAddTodoActions.value = false;
+    }
+  }, 200);
+};
+
+const handleClickOutside = (event: MouseEvent) => {
+  const addTodoCard = document.querySelector(".add-todo-card");
+  if (addTodoCard && !addTodoCard.contains(event.target as Node)) {
+    hideAddTodoActions();
   }
 };
+
+// Adicione este hook de ciclo de vida
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
 </script>
 
 <template>
@@ -171,7 +190,6 @@ const hideAddTodoActions = () => {
         <input
           v-model="newTodo"
           @focus="showAddTodoActions = true"
-          @blur="hideAddTodoActions"
           class="todo-input"
           placeholder="No que você está trabalhando?"
         />
@@ -333,5 +351,43 @@ const hideAddTodoActions = () => {
   background-color: var(--card-bg);
   color: var(--text-color);
   border: 1px solid var(--border-color);
+}
+
+.add-todo-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  width: 100%;
+  opacity: 1;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.add-todo-actions.hidden {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+}
+
+.add-btn {
+  white-space: nowrap;
+  background-color: var(--fb-blue);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.add-btn:hover:not(:disabled) {
+  background-color: var(--fb-dark-blue);
+}
+
+.add-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 </style>
