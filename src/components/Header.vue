@@ -28,7 +28,7 @@ const toggleNotifications = () => {
         />
       </div>
       <div class="user-actions">
-        <button class="icon-btn" title="Adicionar tarefa" ">
+        <button class="icon-btn" title="Adicionar tarefa">
           <i class="fas fa-plus"></i>
         </button>
         <button
@@ -41,7 +41,7 @@ const toggleNotifications = () => {
             notificationCount
           }}</span>
         </button>
-        <button class="icon-btn" title="Perfil" >
+        <button class="icon-btn" title="Perfil">
           <i class="fas fa-user"></i>
         </button>
         <!-- Removido: botão de alternar tema -->
@@ -165,6 +165,4 @@ const toggleNotifications = () => {
     max-width: 50%;
   }
 }
-/* Estilos específicos do cabeçalho */
-/* ... (estilos CSS) ... */
 </style>
